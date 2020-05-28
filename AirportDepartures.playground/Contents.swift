@@ -16,6 +16,8 @@ import UIKit
 //: e. Use a `String?` for the Terminal, since it may not be set yet (i.e.: waiting to arrive on time)
 //:
 //: f. Use a class to represent a `DepartureBoard` with a list of departure flights, and the current airport
+//print("something")
+
 enum FlightStatus: String {
     case enRoute, scheduled, canceled, delayed, boarding
 }
@@ -167,7 +169,7 @@ func printDeparturesTwo(departureBoard: DepartureBoard) {
     }
 }
 
-//printDeparturesTwo(departureBoard: jfkDepartures)
+printDeparturesTwo(departureBoard: jfkDepartures)
 
 
 //: ## 5. Add an instance method to your `DepatureBoard` class (above) that can send an alert message to all passengers about their upcoming flight. Loop through the flights and use a `switch` on the flight status variable.
@@ -205,15 +207,32 @@ jfkDepartures.alertPassengers()
 //: e. Make sure to cast the numbers to the appropriate types so you calculate the correct airfare
 //:
 //: f. Stretch: Use a [`NumberFormatter`](https://developer.apple.com/documentation/foundation/numberformatter) with the `currencyStyle` to format the amount in US dollars.
-//func calculateAirfare(checkedBags: Int, distance: Int, travelers: Int) -> Double {
-//    // assumptions: checkedBags is total for all travelers
-//    let bagCost = checkedBags * 25
-//    let distanceCost = Double(distance) * 0.1
-//    let travelerCost = Double(travelers) * distanceCost
-//    let totalCost = Double(bagCost) + travelerCost
-//    return totalCost
-//}
-//
-//print(calculateAirfare(checkedBags: 3, distance: 1000, travelers: 2))
+func calculateAirfare(checkedBags: Int, distance: Int, travelers: Int) -> Double {
+    // assumptions: checkedBags is total for all travelers
+    let bagCost = checkedBags * 25
+    let distanceCost = Double(distance) * 0.1
+    let travelerCost = Double(travelers) * distanceCost
+    let totalCost = Double(bagCost) + travelerCost
+    return totalCost
+}
 
+let airfare = calculateAirfare(checkedBags: 2, distance: 1000, travelers: 2)
+print(airfare)
 
+func convertDoubleToCurrency(amount: Double) -> String {
+    let numberFormatter = NumberFormatter()
+    numberFormatter.numberStyle = .currency
+    
+//  bonus approach
+//    if let number = numberFormatter.string(from: NSNumber(value: amount)) {
+//        return number
+//    } else {
+//        return ""
+//    }
+    
+    // initial approach
+    return numberFormatter.string(from: NSNumber(value: amount))!
+}
+
+let currencyAirfare = convertDoubleToCurrency(amount: airfare)
+print(currencyAirfare)
